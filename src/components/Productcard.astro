@@ -7,7 +7,19 @@ const { data } = Astro.props;
   <h3>{data.productdisplayname}</h3>
   <p>{data.articletype}</p>
   <p>{data.brandname}</p>
-  <p>{data.price} Kr.</p>
-
-  <a href="product.html">Read More</a>
+  <p>DKK <span class={data.discount ? "onsale" : "fullprice"}> {data.price}</span></p>
+  {data.discount &&
+  <p>Now DKK {data.price - (data.discount * data.price) / 100},-</p>
+  <p>-{data.discount}%</p>}
+  <a href={`../product/${data.id}`}>Read More</a>
 </article>
+
+<style>
+  .onsale {
+    text-decoration: line-through;
+    color: orange;
+  }
+  .fullprice {
+    color: green;
+  }
+</style>
